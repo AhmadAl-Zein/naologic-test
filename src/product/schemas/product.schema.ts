@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, SchemaTypes } from 'mongoose';
 
 export interface Image {
   fileName: string;
@@ -50,7 +50,7 @@ export interface Attributes {
 @Schema({ timestamps: true })
 export class Product extends Document {
   @Prop({ required: false })
-  name?: string;
+  name: string;
 
   @Prop({ required: false })
   type: string;
@@ -82,13 +82,13 @@ export class Product extends Document {
   @Prop({ required: false })
   isTaxable: boolean;
 
-  @Prop({ required: false })
+  @Prop({ type: SchemaTypes.Mixed, required: false })
   options: Option[];
 
-  @Prop({ required: false })
+  @Prop({ type: SchemaTypes.Mixed, required: false })
   variants: Variant[];
 
-  @Prop({ required: false })
+  @Prop({ type: SchemaTypes.Mixed, required: false })
   images: Image[];
 }
 

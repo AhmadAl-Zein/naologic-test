@@ -190,7 +190,11 @@ export class CronProductService {
       });
   }
 
-  @Cron(CronExpression.EVERY_MINUTE)
+  //1- Split Large CSV file to multiple small files (to distribute high load on CPU instead of processing conversion to JSON on 1 large CSV)
+  //2- Convert CSV to JSON
+  //3- Map JSON to the Desired Formatted JSON (Manually or by AI)
+  //4- Insert to DB
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   async syncProducts() {
     const csvFilePath = path.join(__dirname, '../../images40.txt');
     const jsonFilePath = path.join(__dirname, '../../products.json');
